@@ -1,0 +1,21 @@
+---
+  
+- name: Playbook to install docker
+
+  hosts: all
+
+  become: yes
+
+
+
+  tasks:
+
+    - name: Install docker
+
+      apt:
+
+        name: docker
+
+        state: present
+
+        update_cache: yes
