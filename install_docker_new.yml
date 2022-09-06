@@ -5,36 +5,40 @@
   tasks:
    - name: check if docker is installed
      command: docker --version
-     register: docker_valid
+     register: docker_installed
      ignore_errors: yes
 
-   - debug: msg="{{ docker_valid }}"
+   - debug: msg="{{ docker_installed }}"
+   
+   - debug: msg="docker not installed"
+     when: docker_installed.failed
+     
 #    - name: Install aptitude using apt
 #      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
-#      when: docker_valid.failed
+#      when: docker_installed.failed
      
 #    - name: Install required system packages
 #      apt: name={{ item }} state=latest update_cache=yes
 #      loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
-#      when: docker_valid.failed
+#      when: docker_installed.failed
 
 #    - name: Add Docker GPG apt Key
 #      apt_key:
 #        url: https://download.docker.com/linux/ubuntu/gpg
 #        state: present
-#      when: docker_valid.failed
+#      when: docker_installed.failed
 
 #    - name: Add Docker Repository
 #      apt_repository:
 #        repo: deb https://download.docker.com/linux/ubuntu bionic stable
 #        state: present
-#      when: docker_valid.failed
+#      when: docker_installed.failed
 
 #    - name: Update apt and install docker-ce
 #      apt: update_cache=yes name=docker-ce state=latest
-#      when: docker_valid.failed
+#      when: docker_installed.failed
 
 #    - name: Install Docker Module for Python
 #      pip:
 #        name: docker
-#      when: docker_valid.failed
+#      when: docker_installed.failed
