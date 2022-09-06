@@ -1,6 +1,6 @@
 #!/bin/bash
 
-puppet_status=$(sudo systemctl status puppet)
+puppet_status=$(systemctl status puppet)
 echo $puppet_status
 if [[ $puppet_status =~ .*"active".* ]]
 then
