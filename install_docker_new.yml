@@ -1,5 +1,5 @@
 ---
-- name: install docker
+- name: install docker if not present
   hosts: all
   become: yes
   tasks:
@@ -8,9 +8,10 @@
      register: docker_installed
      ignore_errors: yes
 
-   - debug: msg="{{ docker_installed }}"
+   - debug: msg="Docker already installed"
+     when: docker_installed.rc==0
    
-   - debug: msg="docker not installed"
+   - debug: msg="Docker is not installed, proceeding to intall..."
      when: docker_installed.failed
      
 #    - name: Install aptitude using apt
